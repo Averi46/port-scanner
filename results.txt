@@ -1,0 +1,5 @@
+Input: 142.250.68.46
+Port 80 is open
+Port 443 is open
+Input connects to port 443
+

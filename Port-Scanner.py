@@ -4,16 +4,26 @@ import validators
 import nmap
 import socket
 
+
 def scan(input):
+    f = open("results.txt", "a")
     print(input)
+    f.write("Input: " + str(input) + "\n")
     nmScan = nmap.PortScanner()
     nmScanResult = nmScan.scan(input, '21-444')
     if 'tcp' in nmScanResult['scan'][input]:
-        print(list(nmScanResult['scan'][input]['tcp'].keys()))
+        openPorts = list(nmScanResult['scan'][input]['tcp'].keys())
+        print(openPorts)
+        for x in openPorts:
+            f.write("Port {} is open".format(x)+ "\n")
         if 443 in list(nmScanResult['scan'][input]['tcp'].keys()):
             print("connects to port 443")
+            f.write("Input connects to port 443"+ "\n" + "\n")
+        f.close()
     else:
         print("No tcp found")
+        f.write("No tcp ports found"+ "\n"+ "\n")
+        f.close()
 
 def getInput():
     userInput = input("Type url or ip: \n")
